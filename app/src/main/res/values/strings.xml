@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">DesafioMobits</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="sign_up">Sign UP</string>
+    <string name="sign_up2">SIGN UP</string>
+    <string name="banco">Banco Mobits</string>
+    <string name="conta">Número da Conta</string>
+    <string name="digito">Dígito</string>
+    <string name="conta_vip">Conta VIP</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="senha">Senha</string>
+    <string name="confirme_sua_senha">Confirme sua senha</string>
+    <string name="ou">ou</string>
+    <string name="vip">VIP</string>
+    <string name="conta_header">Conta:</string>
+    <string name="saldo">Saldo</string>
+    <string name="extrato">Extrato</string>
+    <string name="sair">Sair</string>
+    <string name="deposito">Depósito</string>
+    <string name="transferencia">Transferência</string>
+    <string name="solicitar_visita_do_gerente">Solicitar visita do gerente</string>
+    <string name="saque">Saque</string>
+    <string name="voltar_ao_menu_principal">Voltar ao Menu Principal</string>
+    <string name="menu_principal">Menu principal</string>
+    <string name="valor_a_depositar">Valor a depositar</string>
+    <string name="valor_a_sacar">Valor a sacar</string>
+    <string name="efetuar_saque">Efetuar saque</string>
+    <string name="efetuar_dep_sito">Efetuar depósito</string>
+    <string name="confirma_solicita_o">Confirma solicitação</string>
+    <string name="conta_de_destino">Conta de destino</string>
+    <string name="valor_a_transferir">Valor a transferir</string>
+    <string name="efetuar_transfer_ncia">Efetuar transferência</string>
+</resources>
