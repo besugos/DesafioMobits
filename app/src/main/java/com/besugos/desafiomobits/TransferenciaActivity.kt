@@ -9,6 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class TransferenciaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,28 +32,50 @@ class TransferenciaActivity : AppCompatActivity() {
             val contaDestino = findViewById<TextInputEditText>(R.id.etContaTransferencia).text.toString()
             val keyContaDestino = contaDestino + "SALDO"
             val keyContaOrigem = conta + "SALDO"
+            val keyExtratoOrigem = conta + "EXTRATO"
+            val keyExtratoDestino = contaDestino + "EXTRATO"
 
             val sharedPreferences = getSharedPreferences("banco_mobits_usuarios", Context.MODE_PRIVATE)
 
             if (sharedPreferences.contains(keyContaDestino)) {
-                var saldoDestino = sharedPreferences.getString(keyContaDestino, "0.00")
+                var saldoDestino = sharedPreferences.getString(keyContaDestino, "0.00")!!.toDouble()
+                var extratoDestino = sharedPreferences.getString(keyExtratoDestino, "")
+                var extratoOrigem = sharedPreferences.getString(keyExtratoOrigem, "")
+                val current = LocalDateTime.now()
+                val formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm")
+                val formatted = current.format(formatter)
+
                 if (isVip) {
                     saldoNum = saldoNum - transferenciaNum - (transferenciaNum * 0.008)
                     saldoDestino = saldoDestino + transferenciaNum
+
+                    extratoOrigem = extratoOrigem + formatted + " | " + "TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
+                    extratoOrigem = extratoOrigem + formatted + " | " + "TARIF | -" + (String.format("%.2f", (0.08 * transferenciaNum))) + "#"
+                    extratoDestino = extratoDestino + formatted + " | " + "TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
+
                     val editor = sharedPreferences.edit()
                     editor.apply {
                         putString(keyContaOrigem, saldoNum.toString())
                         putString(keyContaDestino, saldoDestino.toString())
+                        putString(keyExtratoDestino, extratoDestino)
+                        putString(keyExtratoOrigem, extratoOrigem)
                     }.apply()
                     Toast.makeText(this, "Transferência realizada com sucesso", Toast.LENGTH_SHORT).show()
                 } else {
                     if (saldoNum >= (transferenciaNum + 8) && transferenciaNum <= 1000) {
                         saldoNum = saldoNum - (transferenciaNum + 8)
                         saldoDestino = saldoDestino + transferenciaNum
+
+                        extratoOrigem = extratoOrigem + formatted + " | " + "TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
+                        extratoOrigem = extratoOrigem + formatted + " | " + "TARIF | -8.00#"
+                        extratoDestino = extratoDestino + formatted + " | " + "TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
+
                         val editor = sharedPreferences.edit()
                         editor.apply {
                             putString(keyContaOrigem, saldoNum.toString())
                             putString(keyContaDestino, saldoDestino.toString())
+                            putString(keyExtratoDestino, extratoDestino)
+                            putString(keyExtratoOrigem, extratoOrigem)
                         }.apply()
                         Toast.makeText(this, "Transferência realizada com sucesso", Toast.LENGTH_SHORT).show()
                     } else {
@@ -74,7 +98,7 @@ class TransferenciaActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.btnDepositoSair).setOnClickListener {
+        findViewById<Button>(R.id.btnTransferenciaSair).setOnClickListener {
             val intent = Intent(this@TransferenciaActivity, MainActivity::class.java)
             with(intent) {
                 startActivity(this)
@@ -82,7 +106,7 @@ class TransferenciaActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.btnDepositoVoltar).setOnClickListener {
+        findViewById<Button>(R.id.btnTransferenciaVoltar).setOnClickListener {
             val intent = Intent(this@TransferenciaActivity, HomeActivity::class.java)
             with(intent) {
                 putExtra("CONTA", conta)

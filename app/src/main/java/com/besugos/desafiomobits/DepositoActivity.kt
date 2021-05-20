@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class DepositoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +32,25 @@ class DepositoActivity : AppCompatActivity() {
             val deposito = findViewById<TextInputEditText>(R.id.etDeposito).text.toString()
             val depositoNum = deposito!!.toDouble()
 
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm")
+            val formatted = current.format(formatter)
+
             saldoNum = saldoNum + depositoNum
 
             val keySaldo = conta + "SALDO"
+            val keyExtrato = conta + "EXTRATO"
 
             val sharedPreferences = getSharedPreferences("banco_mobits_usuarios", Context.MODE_PRIVATE)
+
+            var extratoConta = sharedPreferences.getString(keyExtrato, "")
+
+            extratoConta = extratoConta + formatted + " | " + "DEPOS | +" + (String.format("%.2f", depositoNum)) + "#"
+
             val editor = sharedPreferences.edit()
             editor.apply {
                 putString(keySaldo, saldoNum.toString())
+                putString(keyExtrato, extratoConta)
             }.apply()
 
             Toast.makeText(this, "Depósito efetudo com sucesso", Toast.LENGTH_SHORT).show()

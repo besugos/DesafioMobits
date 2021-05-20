@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DesafioMobits">
-        <activity android:name=".TransferenciaActivity"></activity>
+        <activity android:name=".ExtratoActivity"></activity>
+        <activity android:name=".TransferenciaActivity" />
         <activity android:name=".GerenteActivity" />
         <activity android:name=".SaqueActivity" />
         <activity android:name=".DepositoActivity" />

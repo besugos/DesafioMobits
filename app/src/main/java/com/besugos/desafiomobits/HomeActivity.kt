@@ -46,7 +46,15 @@ class HomeActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnExtrato).setOnClickListener {
-
+            val intent = Intent(this@HomeActivity, ExtratoActivity::class.java)
+            with(intent) {
+                putExtra("CONTA", conta)
+                putExtra("SALDO", saldo)
+                putExtra("VIP", isVip)
+                putExtra("EXTRATO", extrato)
+                startActivity(this)
+                finish()
+            }
         }
 
         findViewById<Button>(R.id.btnDeposito).setOnClickListener {
@@ -74,11 +82,27 @@ class HomeActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btnTransferencia).setOnClickListener {
-
+            val intent = Intent(this@HomeActivity, TransferenciaActivity::class.java)
+            with(intent) {
+                putExtra("CONTA", conta)
+                putExtra("SALDO", saldo)
+                putExtra("VIP", isVip)
+                putExtra("EXTRATO", extrato)
+                startActivity(this)
+                finish()
+            }
         }
 
         findViewById<Button>(R.id.btnGerente).setOnClickListener {
-
+            val intent = Intent(this@HomeActivity, GerenteActivity::class.java)
+            with(intent) {
+                putExtra("CONTA", conta)
+                putExtra("SALDO", saldo)
+                putExtra("VIP", isVip)
+                putExtra("EXTRATO", extrato)
+                startActivity(this)
+                finish()
+            }
         }
 
     }
