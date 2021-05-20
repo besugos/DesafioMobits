@@ -9,11 +9,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputEditText
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SaqueActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saque)
+
         val conta = intent.getStringExtra("CONTA")
         val saldo = intent.getStringExtra("SALDO")
         val isVip = intent.getBooleanExtra("VIP", false)
@@ -28,15 +31,26 @@ class SaqueActivity : AppCompatActivity() {
             val saque = findViewById<TextInputEditText>(R.id.etSaque).text.toString()
             val saqueNum = saque!!.toDouble()
 
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm")
+            val formatted = current.format(formatter)
+
             if (isVip || saldoNum >= saqueNum) {
                 saldoNum = saldoNum - saqueNum
 
                 val keySaldo = conta + "SALDO"
+                val keyExtrato = conta + "EXTRATO"
 
                 val sharedPreferences = getSharedPreferences("banco_mobits_usuarios", Context.MODE_PRIVATE)
+
+                var extratoConta = sharedPreferences.getString(keyExtrato, "")
+
+                extratoConta = extratoConta + formatted + " | SAQUE | -" + (String.format("%.2f", saqueNum)) + "#"
+
                 val editor = sharedPreferences.edit()
                 editor.apply {
                     putString(keySaldo, saldoNum.toString())
+                    putString(keyExtrato, extratoConta)
                 }.apply()
 
                 Toast.makeText(this, "Saque efetudo com sucesso", Toast.LENGTH_SHORT).show()

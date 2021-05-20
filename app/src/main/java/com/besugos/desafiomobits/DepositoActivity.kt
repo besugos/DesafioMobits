@@ -45,7 +45,7 @@ class DepositoActivity : AppCompatActivity() {
 
             var extratoConta = sharedPreferences.getString(keyExtrato, "")
 
-            extratoConta = extratoConta + formatted + " | " + "DEPOS | +" + (String.format("%.2f", depositoNum)) + "#"
+            extratoConta = extratoConta + formatted + " | DEPOS | +" + (String.format("%.2f", depositoNum)) + "#"
 
             val editor = sharedPreferences.edit()
             editor.apply {

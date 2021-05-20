@@ -49,9 +49,9 @@ class TransferenciaActivity : AppCompatActivity() {
                     saldoNum = saldoNum - transferenciaNum - (transferenciaNum * 0.008)
                     saldoDestino = saldoDestino + transferenciaNum
 
-                    extratoOrigem = extratoOrigem + formatted + " | " + "TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
-                    extratoOrigem = extratoOrigem + formatted + " | " + "TARIF | -" + (String.format("%.2f", (0.08 * transferenciaNum))) + "#"
-                    extratoDestino = extratoDestino + formatted + " | " + "TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
+                    extratoOrigem = extratoOrigem + formatted + " | TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
+                    extratoOrigem = extratoOrigem + formatted + " | TARIF | -" + (String.format("%.2f", (0.08 * transferenciaNum))) + "#"
+                    extratoDestino = extratoDestino + formatted + " | TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
 
                     val editor = sharedPreferences.edit()
                     editor.apply {
@@ -66,9 +66,9 @@ class TransferenciaActivity : AppCompatActivity() {
                         saldoNum = saldoNum - (transferenciaNum + 8)
                         saldoDestino = saldoDestino + transferenciaNum
 
-                        extratoOrigem = extratoOrigem + formatted + " | " + "TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
-                        extratoOrigem = extratoOrigem + formatted + " | " + "TARIF | -8.00#"
-                        extratoDestino = extratoDestino + formatted + " | " + "TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
+                        extratoOrigem = extratoOrigem + formatted + " | TRANS | -" + (String.format("%.2f", transferenciaNum)) + "#"
+                        extratoOrigem = extratoOrigem + formatted + " | TARIF | -8.00#"
+                        extratoDestino = extratoDestino + formatted + " | TRANS | +" + (String.format("%.2f", transferenciaNum)) + "#"
 
                         val editor = sharedPreferences.edit()
                         editor.apply {

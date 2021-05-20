@@ -30,7 +30,11 @@ class ExtratoActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("banco_mobits_usuarios", Context.MODE_PRIVATE)
         val extratoConta = sharedPreferences.getString(keyExtrato, "")
 
-        val extratoLista = extratoConta!!.split("#")
+        val extratoLista = extratoConta!!.split("#") as MutableList<String>
+        if (extratoLista.size > 1) {
+            extratoLista.removeLast()
+        }
+
 
         val lista = findViewById<ListView>(R.id.listExtrato)
 
